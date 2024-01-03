@@ -1,7 +1,8 @@
 package com.auto.boot.common.utils;
 
-import cn.aos.isigning.autograph.autographcommon.constant.StringPool;
+import com.auto.boot.common.constant.StringPool;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -31,11 +32,11 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String realName(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
         String s = str.substring(1);
-        return StringUtil.leftPad(s, str.length(), "*");
+        return StringUtils.leftPad(s, str.length(), "*");
     }
 
     /**
@@ -51,12 +52,12 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String mobile(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
-        String before = StringUtil.left(str, 3);
-        String after = StringUtil.right(str, 4);
-        return StringUtil.rightPad(before, str.length() - 4, "*") + after;
+        String before = StringUtils.left(str, 3);
+        String after = StringUtils.right(str, 4);
+        return StringUtils.rightPad(before, str.length() - 4, "*") + after;
     }
 
     /**
@@ -73,7 +74,7 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String phone(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
         String s = str;
@@ -88,9 +89,9 @@ public class DesensitizationUtil {
             areaCode = str.substring(0, index + 1);
         }
 
-        String before = StringUtil.left(s, 2);
-        String after = StringUtil.right(s, 2);
-        return areaCode + StringUtil.rightPad(before, before.length() + 4, "*") + after;
+        String before = StringUtils.left(s, 2);
+        String after = StringUtils.right(s, 2);
+        return areaCode + StringUtils.rightPad(before, before.length() + 4, "*") + after;
     }
 
     /**
@@ -109,12 +110,12 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String idCard(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
-        String before = StringUtil.left(str, 3);
-        String after = StringUtil.right(str, 3);
-        return StringUtil.rightPad(before, before.length() + 6, "*") + after;
+        String before = StringUtils.left(str, 3);
+        String after = StringUtils.right(str, 3);
+        return StringUtils.rightPad(before, before.length() + 6, "*") + after;
     }
 
     /**
@@ -131,16 +132,16 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String enterpriseName(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
         int mixLength = 6;
         if (str.length() <= mixLength) {
             return str;
         }
-        String before = StringUtil.left(str, 2);
-        String after = StringUtil.right(str, 4);
-        return StringUtil.rightPad(before, before.length() + 6, "*") + after;
+        String before = StringUtils.left(str, 2);
+        String after = StringUtils.right(str, 4);
+        return StringUtils.rightPad(before, before.length() + 6, "*") + after;
     }
 
     /**
@@ -156,7 +157,7 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String socialCreditCode(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
         int mixLength = 6;
@@ -164,9 +165,9 @@ public class DesensitizationUtil {
             return str;
         }
         // TODO: 2023/6/20 待处理
-        String before = StringUtil.left(str, 2);
-        String after = StringUtil.right(str, 4);
-        return StringUtil.rightPad(before, before.length() + 6, "*") + after;
+        String before = StringUtils.left(str, 2);
+        String after = StringUtils.right(str, 4);
+        return StringUtils.rightPad(before, before.length() + 6, "*") + after;
     }
 
     /**
@@ -182,12 +183,12 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String organizationCode(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
-        String before = StringUtil.left(str, 3);
-        String after = StringUtil.right(str, 3);
-        return StringUtil.rightPad(before, str.length() - 3, "*") + after;
+        String before = StringUtils.left(str, 3);
+        String after = StringUtils.right(str, 3);
+        return StringUtils.rightPad(before, str.length() - 3, "*") + after;
     }
 
     /**
@@ -203,12 +204,12 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String businessRegistrationNumber(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
-        String before = StringUtil.left(str, 3);
-        String after = StringUtil.right(str, 3);
-        return StringUtil.rightPad(before, str.length() - 3, "*") + after;
+        String before = StringUtils.left(str, 3);
+        String after = StringUtils.right(str, 3);
+        return StringUtils.rightPad(before, str.length() - 3, "*") + after;
     }
 
     /**
@@ -225,11 +226,11 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String ipv4(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
-        String before = StringUtil.left(str, str.indexOf("."));
-        String after = StringUtil.substring(str, str.lastIndexOf(".") + 1);
+        String before = StringUtils.left(str, str.indexOf("."));
+        String after = StringUtils.substring(str, str.lastIndexOf(".") + 1);
         String asterisk = "***";
         return before + StringPool.DOT + asterisk + StringPool.DOT + asterisk + StringPool.DOT + after;
     }
@@ -248,7 +249,7 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String ipv6(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
         String[] strings = str.split(StringPool.COLON);
@@ -263,7 +264,7 @@ public class DesensitizationUtil {
                 stringList.add(asterisk);
             }
         }
-        return StringUtil.join(stringList, StringPool.COLON);
+        return StringUtils.join(stringList, StringPool.COLON);
     }
 
     /**
@@ -280,7 +281,7 @@ public class DesensitizationUtil {
      * @return 返回脱敏值
      */
     public static String address(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtils.isBlank(str)) {
             return str;
         }
         // TODO: 2023/6/8 不好处理，逻辑待定

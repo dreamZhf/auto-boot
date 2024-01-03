@@ -1,6 +1,6 @@
 package com.auto.boot.starter.common.utils;
 
-import com.auto.boot.starter.common.jackson.CoreJavaTimeModule;
+import com.auto.boot.common.jackson.CoreJavaTimeModule;
 import com.auto.boot.common.utils.DateTimeUtil;
 import com.auto.boot.starter.common.jackson.LogModule;
 import com.fasterxml.jackson.core.JsonParser;

@@ -1,4 +1,4 @@
-package com.auto.boot.starter.common.jackson;
+package com.auto.boot.common.jackson;
 
 import com.auto.boot.common.utils.DateTimeUtil;
 import com.fasterxml.jackson.databind.module.SimpleModule;

@@ -1,14 +1,16 @@
 package com.auto.boot.common.utils;
 
-import cn.aos.isigning.autograph.autographcommon.constant.StringPool;
-import cn.aos.isigning.autograph.autographcommon.jackson.CoreJavaTimeModule;
+import com.auto.boot.common.constant.StringPool;
+import com.auto.boot.common.jackson.CoreJavaTimeModule;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.type.CollectionLikeType;
 import com.fasterxml.jackson.databind.type.MapType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 
 import java.io.IOException;
@@ -161,7 +163,7 @@ public class JsonUtil {
     public static <T> List<T> parseArray(String content, Class<T> valueTypeRef) {
         try {
 
-            if (!StringUtil.startsWithIgnoreCase(content, StringPool.LEFT_SQ_BRACKET)) {
+            if (!StringUtils.startsWithIgnoreCase(content, StringPool.LEFT_SQ_BRACKET)) {
                 content = StringPool.LEFT_SQ_BRACKET + content + StringPool.RIGHT_SQ_BRACKET;
             }
             List<Map<String, Object>> list =(List<Map<String, Object>>) getInstance().readValue(content, new TypeReference<List<T>>() {});
@@ -267,7 +269,7 @@ public class JsonUtil {
      */
     @Nullable
     public static <T> T readValue(@Nullable String jsonString, Class<T> valueType) {
-        if (StringUtil.isBlank(jsonString)) {
+        if (StringUtils.isBlank(jsonString)) {
             return null;
         }
         try {
@@ -327,7 +329,7 @@ public class JsonUtil {
      */
     @Nullable
     public static <T> T readValue(@Nullable String jsonString, TypeReference<T> typeReference) {
-        if (StringUtil.isBlank(jsonString)) {
+        if (StringUtils.isBlank(jsonString)) {
             return null;
         }
         try {

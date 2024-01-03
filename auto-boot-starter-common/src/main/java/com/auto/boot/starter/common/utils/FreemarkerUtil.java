@@ -1,4 +1,4 @@
-package com.auto.boot.common.utils;
+package com.auto.boot.starter.common.utils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
