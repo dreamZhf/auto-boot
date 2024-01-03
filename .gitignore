@@ -1,0 +1,38 @@
+# maven #
+target
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+logs
+*.log
+
+# windows #
+Thumbs.db
+
+# Mac #
+.DS_Store
+
+# eclipse #
+.settings
+.project
+.classpath
+.log
+*.class
+
+# idea #
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/target
+
+venv
+
+### 本地配置 ###
+application-local.yml
