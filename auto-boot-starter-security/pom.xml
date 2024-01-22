@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.auto</groupId>
         <artifactId>auto-boot-parent</artifactId>
@@ -11,33 +10,24 @@
         <relativePath>../auto-boot-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>auto-boot-bank</artifactId>
+    <artifactId>auto-boot-starter-security</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.auto</groupId>
+            <artifactId>auto-boot-starter-common</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.auto</groupId>
-            <artifactId>auto-boot-starter-mybatis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.auto</groupId>
-            <artifactId>auto-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <artifactId>auto-boot-common</artifactId>
         </dependency>
     </dependencies>
+    
 </project>

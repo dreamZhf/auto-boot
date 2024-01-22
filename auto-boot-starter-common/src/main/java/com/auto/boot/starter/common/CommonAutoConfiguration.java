@@ -4,12 +4,11 @@ import com.auto.boot.starter.common.advice.DefaultWebControllerAdvice;
 import com.auto.boot.starter.common.advice.IWebControllerAdvice;
 import com.auto.boot.starter.common.exception.DefaultGlobalExceptionHandler;
 import com.auto.boot.starter.common.exception.IGlobalExceptionHandler;
-import com.auto.boot.starter.common.filter.AutoBootLogFilter;
-import com.auto.boot.starter.common.filter.AutoBootTraceFilter;
+import com.auto.boot.starter.common.filter.ILogFilter;
+import com.auto.boot.starter.common.filter.ITraceFilter;
 import com.auto.boot.starter.common.filter.DefaultLogFilter;
 import com.auto.boot.starter.common.filter.DefaultTraceFilter;
 import com.auto.boot.starter.common.properties.AutoProperties;
-import com.auto.boot.starter.common.properties.AutoSecurityProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,8 +22,8 @@ import org.springframework.context.annotation.Bean;
  */
 @Slf4j
 @AllArgsConstructor
-@EnableConfigurationProperties({AutoProperties.class, AutoSecurityProperties.class})
-public class AutoBootAutoConfiguration {
+@EnableConfigurationProperties({AutoProperties.class})
+public class CommonAutoConfiguration {
 
     /**
      * 创建 LogFilter
@@ -33,22 +32,22 @@ public class AutoBootAutoConfiguration {
      * @return 返回 LogFilter
      */
     @Bean
-    @ConditionalOnMissingBean(AutoBootLogFilter.class)
+    @ConditionalOnMissingBean(ILogFilter.class)
     public DefaultLogFilter logFilter(AutoProperties autoProperties) {
         log.info("create logFilter");
         return new DefaultLogFilter(autoProperties);
     }
 
     /**
-     * 创建 MdcFilter
+     * 创建 traceFilter
      *
      * @param autoProperties 配置信息
      * @return 返回 LogFilter
      */
     @Bean
-    @ConditionalOnMissingBean(AutoBootTraceFilter.class)
-    public DefaultTraceFilter mdcFilter(AutoProperties autoProperties) {
-        log.info("create mdcFilter");
+    @ConditionalOnMissingBean(ITraceFilter.class)
+    public DefaultTraceFilter traceFilter(AutoProperties autoProperties) {
+        log.info("create traceFilter");
         return new DefaultTraceFilter(autoProperties);
     }
 

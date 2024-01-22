@@ -3,17 +3,18 @@ package com.auto.boot.starter.common.filter;
 import com.auto.boot.common.model.vo.ResultVO;
 import com.auto.boot.common.utils.JsonUtil;
 import org.slf4j.Logger;
+import org.springframework.core.Ordered;
 
 import javax.servlet.Filter;
 import javax.servlet.ServletResponse;
 import java.io.PrintWriter;
 
 /**
- * 自定义 filter
+ * filter
  *
  * @author zhaohaifan
  */
-public interface CustomFilter extends Filter {
+public interface IFilter extends Filter, Ordered {
 
     /**
      * 获取日志

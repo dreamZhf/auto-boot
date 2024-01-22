@@ -2,11 +2,13 @@ package com.auto.boot.starter.common.filter;
 
 import com.auto.boot.common.utils.JsonUtil;
 import com.auto.boot.common.utils.ObjectUtil;
+import com.auto.boot.starter.common.enums.FilterEnum;
 import com.auto.boot.starter.common.properties.AutoProperties;
 import com.auto.boot.starter.common.utils.IPUtil;
+import com.auto.boot.starter.common.utils.RequestUtil;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
+import org.slf4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +23,10 @@ import java.util.Map;
  * @author zhaohaifan
  */
 @Slf4j
-public class DefaultLogFilter implements Filter, Ordered, AutoBootLogFilter {
-
-    private final AutoProperties autoProperties;
+public class DefaultLogFilter extends AbstractFilter implements ILogFilter {
 
     public DefaultLogFilter(AutoProperties autoProperties) {
-        this.autoProperties = autoProperties;
+        super(autoProperties);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DefaultLogFilter implements Filter, Ordered, AutoBootLogFilter {
         }
         if (autoProperties.getLog().isHeader()) {
             log.info("请求URL: {}, 请求类型为: {}, 请求IP地址为: {}, 请求header: {}",request.getRequestURL(),
-                    request.getMethod(), IPUtil.getRealIp(request), JsonUtil.toJson(getHeaderMap(request)));
+                    request.getMethod(), IPUtil.getRealIp(request), JsonUtil.toJson(RequestUtil.getAllHeaderMap(request)));
         } else {
             log.info("请求URL: {}, 请求类型为: {}, 请求IP地址为: {}", request.getRequestURL(),
                     request.getMethod(), IPUtil.getRealIp(request));
@@ -67,29 +67,6 @@ public class DefaultLogFilter implements Filter, Ordered, AutoBootLogFilter {
     }
 
     /**
-     * 获取 header map
-     *
-     * @param request 请求
-     * @return 返回 header map
-     */
-    private Map<String, Object> getHeaderMap(HttpServletRequest request) {
-        Enumeration<String> headers = request == null ? null : request.getHeaderNames();
-        Map<String, Object> headerMap = Maps.newHashMap();
-        if (headers == null) {
-            return headerMap;
-        }
-        while (headers.hasMoreElements()) {
-            String headerName = headers.nextElement();
-            if (isIgnoreHeader(headerName)) {
-                continue;
-            }
-            String headerValue = request.getHeader(headerName);
-            headerMap.put(headerName, headerValue);
-        }
-        return headerMap;
-    }
-
-    /**
      * 是否忽略header
      *
      * @param headerName header名称
@@ -105,6 +82,11 @@ public class DefaultLogFilter implements Filter, Ordered, AutoBootLogFilter {
 
     @Override
     public int getOrder() {
-        return 0;
+        return autoProperties.getFilterOrder(FilterEnum.LOG_FILTER.getCode());
+    }
+
+    @Override
+    public Logger getLog() {
+        return log;
     }
 }

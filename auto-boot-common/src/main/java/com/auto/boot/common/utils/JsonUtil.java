@@ -35,9 +35,8 @@ public class JsonUtil {
         try {
             return getInstance().writeValueAsString(value);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            throw Exceptions.unchecked(e);
         }
-        return null;
     }
 
     /**

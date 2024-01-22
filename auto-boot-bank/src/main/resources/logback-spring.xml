@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="APP_Name" value="autograph_test"/>
+    <contextName>${APP_Name}</contextName>
+
+    <!-- 定义⽇志⽂件的存储地址勿在的配置中使⽤相对路径，请根据需求配置路径 LogBack -->
+    <property name="LOG_HOME" value="/opt/app/log/${APP_Name}"/>
+
+    <!--控制台输出 集成 skywalking-->
+<!--    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+<!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+<!--                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] [%tid] %logger{36}:%L - %msg%n</pattern>-->
+<!--            </layout>-->
+<!--            &lt;!&ndash; 设置字符集 &ndash;&gt;-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+    <!--控制台输出 未集成 skywalking-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--    按照每天⽣成⽇志⽂件
+
+     -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!-- ⽇志⽂件输出的⽂件名
+            -->
+            <FileNamePattern>${LOG_HOME}/output-%d{yyyy-MM-dd}.log</FileNamePattern>
+
+            <!-- ⽇志⽂件保留天数
+            -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+<!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
+<!--            &lt;!&ndash;      %d       格式化输出：&ndash;&gt;-->
+<!--            &lt;!&ndash;      %thread       表⽰⽇期，&ndash;&gt;-->
+<!--            &lt;!&ndash;      %-5level       表⽰线程名，&ndash;&gt;-->
+<!--            &lt;!&ndash;      5       ：级别从左显⽰&ndash;&gt;-->
+<!--            &lt;!&ndash;      %msg       个字符宽度&ndash;&gt;-->
+<!--            &lt;!&ndash;      %n       ：⽇志消息，&ndash;&gt;-->
+<!--            &lt;!&ndash;           是换⾏符&ndash;&gt;-->
+<!--            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+<!--                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] [%tid] %logger{36}:%L - %msg%n</pattern>-->
+<!--            </layout>-->
+<!--        </encoder>-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 推送日志至graylog -->
+<!--    <if condition='property("graylog.enable").toUpperCase().contains("TRUE")'>-->
+<!--        <then>-->
+<!--            <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">-->
+<!--                <graylogHost>${graylog.host}</graylogHost>-->
+<!--                <graylogPort>${graylog.port}</graylogPort>-->
+<!--                <encoder class="cn.aos.isigning.starter.log.graylog.GraylogEncoder">-->
+<!--                    <originHost>${HOSTNAME}</originHost>-->
+<!--                    <includeLevelName>true</includeLevelName>-->
+<!--                    <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">-->
+<!--                        <pattern>%m%nopex</pattern>-->
+<!--                    </shortPatternLayout>-->
+<!--                    <fullPatternLayout-->
+<!--                            class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+<!--                        <pattern>%n%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] [%tid] %logger{36}:%L - %msg%n</pattern>-->
+<!--                    </fullPatternLayout>-->
+<!--                    <staticField>namespace:${namespace}</staticField>-->
+<!--                    <staticField>app_name:${APP_Name}</staticField>-->
+<!--                </encoder>-->
+<!--            </appender>-->
+<!--        </then>-->
+<!--    </if>-->
+
+    <!-- 推送日志至 observe -->
+<!--    <if condition='property("observe.enable").toUpperCase().contains("TRUE")'>-->
+<!--        <then>-->
+<!--            <appender name="OBSERVE" class="cn.aos.isigning.starter.log.observe.ObserveHttpAppender">-->
+<!--                <observeUrl>${observe.url}</observeUrl>-->
+<!--                <observeAccount>${observe.account}</observeAccount>-->
+<!--                <observePwd>${observe.pwd}</observePwd>-->
+<!--                <encoder class="cn.aos.isigning.starter.log.observe.ObserveEncoder">-->
+<!--                    <originHost>${HOSTNAME}</originHost>-->
+<!--                    <includeLevelName>true</includeLevelName>-->
+<!--                    <fullPatternLayout-->
+<!--                            class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">-->
+<!--                        <pattern>%msg</pattern>-->
+<!--                    </fullPatternLayout>-->
+<!--                    <staticField>namespace:${namespace}</staticField>-->
+<!--                    <staticField>app_name:${APP_Name}</staticField>-->
+<!--                </encoder>-->
+<!--            </appender>-->
+<!--        </then>-->
+<!--    </if>-->
+
+    <!-- show parameters for hibernate sql
+     Hibernate
+     -->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="WARN"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="WARN"/>
+    <logger name="org.hibernate.SQL" level="WARN"/>
+    <logger name="org.hibernate.engine.QueryParameters" level="INFO"/>
+    <logger name="org.hibernate.engine.query.HQLQueryPlan" level="WARN"/>
+    <!--mybatis log configure-->
+    <logger name="com.apache.ibatis" level="WARN"/>
+    <logger name="java.sql.Connection" level="INFO"/>
+    <logger name="java.sql.Statement" level="WARN"/>
+    <logger name="java.sql.PreparedStatement" level="WARN"/>
+    <logger name="org.apache.shiro" level="WARN"/>
+    <logger name="springfox.documentation" level="WARN"/>
+    <logger name="org.apache.http" level="INFO" />
+    <logger name="org.springframework" level="INFO" />
+    <logger name="com.alibaba.nacos" level="ERROR"/>
+    <!--    ⽇志输出级别，注意：如果不写-->
+    <!--    ，将导致-->
+    <!--    找不到⽂件，⽆法查看⽇志-->
+    <!--
+    <appender-ref ref="FILE" />
+    springboot Admin
+     -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+<!--        <if condition='property("graylog.enable").toUpperCase().contains("TRUE")'>-->
+<!--            <then>-->
+<!--                <appender-ref ref="GELF"/>-->
+<!--            </then>-->
+<!--        </if>-->
+
+<!--        <if condition='property("observe.enable").toUpperCase().contains("TRUE")'>-->
+<!--            <then>-->
+<!--                <appender-ref ref="OBSERVE"/>-->
+<!--            </then>-->
+<!--        </if>-->
+    </root>
+</configuration>

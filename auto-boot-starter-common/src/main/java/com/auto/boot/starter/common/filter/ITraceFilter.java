@@ -1,10 +1,10 @@
 package com.auto.boot.starter.common.filter;
 
 /**
- * 日志 filter
+ * trace filter
  *
  * @author zhaohaifan
  */
-public interface AutoBootLogFilter extends AutoBootFilter {
+public interface ITraceFilter extends IFilter {
 
 }

@@ -1,4 +1,4 @@
-package com.auto.boot.starter.common.properties;
+package com.auto.boot.starter.security.properties;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
