@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Map;
+
 /**
  * 请求信息
  *
@@ -43,4 +45,9 @@ public class RequestInfoDTO {
      * 请求的IP地址
      */
     private String ip;
+
+    /**
+     * header 信息
+     */
+    private Map<String, String> headerMap;
 }

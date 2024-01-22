@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @AllArgsConstructor
-public class AutoBootUtilAutoConfiguration {
+public class CommonUtilAutoConfiguration {
 
     private final ApplicationContext applicationContext;
 

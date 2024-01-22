@@ -1,9 +1,10 @@
 package com.auto.boot.starter.common.filter;
 
 import com.auto.boot.common.utils.MDCUtil;
+import com.auto.boot.starter.common.enums.FilterEnum;
 import com.auto.boot.starter.common.properties.AutoProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
+import org.slf4j.Logger;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -14,17 +15,18 @@ import java.io.IOException;
  * @author zhaohaifan
  */
 @Slf4j
-public class DefaultTraceFilter implements Filter, Ordered, AutoBootTraceFilter {
-
-    private final AutoProperties autoProperties;
+public class DefaultTraceFilter extends AbstractFilter implements ITraceFilter {
 
     public DefaultTraceFilter(AutoProperties autoProperties) {
-        this.autoProperties = autoProperties;
+        super(autoProperties);
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
+        if (log.isDebugEnabled()) {
+            log.debug("进入 trace filter, traceIdEnable: {}", autoProperties.isTraceIdEnable());
+        }
         if (!autoProperties.isTraceIdEnable()) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
@@ -34,11 +36,19 @@ public class DefaultTraceFilter implements Filter, Ordered, AutoBootTraceFilter 
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
             MDCUtil.clear();
+            if (log.isDebugEnabled()) {
+                log.debug("清除请求线程中 traceId 信息");
+            }
         }
     }
 
     @Override
     public int getOrder() {
-        return -1;
+        return autoProperties.getFilterOrder(FilterEnum.TRACE_FILTER.getCode());
+    }
+
+    @Override
+    public Logger getLog() {
+        return log;
     }
 }
