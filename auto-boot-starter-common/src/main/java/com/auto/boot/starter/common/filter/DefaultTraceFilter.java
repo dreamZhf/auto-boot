@@ -22,7 +22,7 @@ public class DefaultTraceFilter extends AbstractFilter implements ITraceFilter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void adapterDoFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         if (log.isDebugEnabled()) {
             log.debug("进入 trace filter, traceIdEnable: {}", autoProperties.isTraceIdEnable());

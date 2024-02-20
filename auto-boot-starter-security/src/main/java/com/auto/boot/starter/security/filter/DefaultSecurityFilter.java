@@ -32,7 +32,7 @@ public class DefaultSecurityFilter extends AbstractFilter implements ISecurityFi
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+    public void adapterDoFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         if (iSecurityService.checkLogin(request)) {

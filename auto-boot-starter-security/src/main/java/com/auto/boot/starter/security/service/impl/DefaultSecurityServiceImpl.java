@@ -6,7 +6,6 @@ import com.auto.boot.starter.security.service.AbstractSecurityService;
 import com.auto.boot.starter.security.service.ISecurityService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,11 +19,6 @@ public class DefaultSecurityServiceImpl extends AbstractSecurityService implemen
 
     public DefaultSecurityServiceImpl(AutoSecurityProperties autoSecurityProperties) {
         super(autoSecurityProperties);
-    }
-
-    @Override
-    public Logger getLog() {
-        return log;
     }
 
     @Override

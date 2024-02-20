@@ -21,4 +21,9 @@ public class GlobalConstant {
      * header 中 token key
      */
     public static final String HEADER_X_TOKEN = "X-TOKEN";
+
+    /**
+     * jwt 密文 key
+     */
+    public static final String JWT_CIPHERTEXT_BODY_KEY = "body";
 }

@@ -5,8 +5,8 @@ import com.auto.boot.common.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.springframework.core.Ordered;
 
-import javax.servlet.Filter;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -21,6 +21,18 @@ public interface IFilter extends Filter, Ordered {
      * @return 返回日志
      */
     Logger getLog();
+
+    /**
+     * 适配 doFilter
+     *
+     * @param servletRequest 请求
+     * @param servletResponse 响应
+     * @param filterChain filterChain
+     */
+    default void adapterDoFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+
+    }
 
     /**
      * 返回信息

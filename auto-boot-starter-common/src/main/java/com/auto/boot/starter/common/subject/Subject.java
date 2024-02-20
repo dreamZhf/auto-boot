@@ -1,6 +1,7 @@
 package com.auto.boot.starter.common.subject;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.auto.boot.common.model.dto.TokenInfoDTO;
 
 /**
  * subject 类
@@ -23,10 +24,24 @@ public class Subject {
     }
 
     /**
+     * 新增 TokenInfoDTO
+     *
+     * @param tokenInfoDTO token 信息
+     */
+    public static void addTokenInfoDTO(TokenInfoDTO tokenInfoDTO) {
+        getRequestInfoDTO().setTokenInfoDTO(tokenInfoDTO);
+    }
+
+    /**
      * 清除掉信息
      */
     public static void remove() {
         THREAD_LOCAL.remove();
+    }
+
+    public static TokenInfoDTO getTokenInfoDTO() {
+        RequestInfoDTO requestInfoDTO = getRequestInfoDTO();
+        return requestInfoDTO == null ? null : requestInfoDTO.getTokenInfoDTO();
     }
 
     /**
@@ -35,8 +50,8 @@ public class Subject {
      * @return 返回当前登录用户id
      */
     public static Long getCurrentUserId() {
-        RequestInfoDTO requestInfoDTO = getRequestInfoDTO();
-        return requestInfoDTO == null ? null : requestInfoDTO.getUserBizId();
+        TokenInfoDTO tokenInfoDTO = getTokenInfoDTO();
+        return tokenInfoDTO == null ? null : tokenInfoDTO.getUserBizId();
     }
 
     /**

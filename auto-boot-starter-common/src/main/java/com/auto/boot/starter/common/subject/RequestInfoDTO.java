@@ -1,5 +1,6 @@
 package com.auto.boot.starter.common.subject;
 
+import com.auto.boot.common.model.dto.TokenInfoDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,19 +18,9 @@ import java.util.Map;
 public class RequestInfoDTO {
 
     /**
-     * token id
-     */
-    private String id;
-
-    /**
-     * 用户ID
-     */
-    private Long userBizId;
-
-    /**
      * token 信息
      */
-    private String token;
+    private TokenInfoDTO tokenInfoDTO;
 
     /**
      * 签名密钥

@@ -30,7 +30,7 @@ public class DefaultLogFilter extends AbstractFilter implements ILogFilter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void adapterDoFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         if (autoProperties.isNoPrintLog(request.getRequestURI())) {

@@ -4,10 +4,7 @@ import com.auto.boot.starter.common.advice.DefaultWebControllerAdvice;
 import com.auto.boot.starter.common.advice.IWebControllerAdvice;
 import com.auto.boot.starter.common.exception.DefaultGlobalExceptionHandler;
 import com.auto.boot.starter.common.exception.IGlobalExceptionHandler;
-import com.auto.boot.starter.common.filter.ILogFilter;
-import com.auto.boot.starter.common.filter.ITraceFilter;
-import com.auto.boot.starter.common.filter.DefaultLogFilter;
-import com.auto.boot.starter.common.filter.DefaultTraceFilter;
+import com.auto.boot.starter.common.filter.*;
 import com.auto.boot.starter.common.properties.AutoProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +30,7 @@ public class CommonAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(ILogFilter.class)
-    public DefaultLogFilter logFilter(AutoProperties autoProperties) {
+    public ILogFilter logFilter(AutoProperties autoProperties) {
         log.info("create logFilter");
         return new DefaultLogFilter(autoProperties);
     }
@@ -46,9 +43,22 @@ public class CommonAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(ITraceFilter.class)
-    public DefaultTraceFilter traceFilter(AutoProperties autoProperties) {
+    public ITraceFilter traceFilter(AutoProperties autoProperties) {
         log.info("create traceFilter");
         return new DefaultTraceFilter(autoProperties);
+    }
+
+    /**
+     * 创建 requestInfoFilter
+     *
+     * @param autoProperties 配置信息
+     * @return 返回 LogFilter
+     */
+    @Bean
+    @ConditionalOnMissingBean(IRequestInfoFilter.class)
+    public IRequestInfoFilter requestInfoFilter(AutoProperties autoProperties) {
+        log.info("create requestInfoFilter");
+        return new DefaultRequestInfoFilter(autoProperties);
     }
 
     /**

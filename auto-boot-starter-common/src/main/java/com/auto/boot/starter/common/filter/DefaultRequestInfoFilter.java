@@ -34,7 +34,7 @@ public class DefaultRequestInfoFilter extends AbstractFilter implements IRequest
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void adapterDoFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
             if (log.isDebugEnabled()) {
                 log.debug("进入 请求信息 filter");
@@ -44,6 +44,7 @@ public class DefaultRequestInfoFilter extends AbstractFilter implements IRequest
             dto.setIp(IPUtil.getRealIp(httpServletRequest));
             dto.setHeaderMap(RequestUtil.getAllHeaderMap(httpServletRequest));
             Subject.add(dto);
+            filterChain.doFilter(servletRequest, servletResponse);
         } finally {
             Subject.remove();
             if (log.isDebugEnabled()) {

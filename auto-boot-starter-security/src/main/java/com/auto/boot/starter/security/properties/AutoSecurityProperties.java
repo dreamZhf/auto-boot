@@ -36,6 +36,11 @@ public class AutoSecurityProperties {
      */
     private List<String> renewTokenWhiteUrls;
 
+    /**
+     * token 密钥
+     */
+    private String tokenSecret;
+
     public AutoSecurityProperties() {
         this.tokenVerifyWhiteUrls = getDefaultTokenVerifyWhiteUrls();
     }
